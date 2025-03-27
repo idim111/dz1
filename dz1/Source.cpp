@@ -1,3 +1,5 @@
+//заменить все абобы
+//понять куда идут формула, просчитать их самостоятельно
 ﻿#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
@@ -174,7 +176,7 @@ int main() {
 		}
 
 		
-
+//отрисовка экрана
 		abobus.clear(Color::Black);
 		kvadrat.setPosition(400, 0);
 		abobus.draw(kvadrat);
@@ -190,7 +192,7 @@ int main() {
 
 
 
-
+//вывод визуала
 		strelochka[0].setSize(Vector2f(30.f, 3.f));
 		strelochka[0].rotate(40.f);
 		strelochka[0].setPosition(776, 376);
@@ -209,7 +211,7 @@ int main() {
 		abobus.draw(strelochka[3]);
 
 
-
+// основная работы функции, Счётчик Х, j второспепенный счётчик, производится функция "func" на Y
 
 		for (int i = 1; i < 51; i++) {
 			palochka[i].setSize(Vector2f(20.f, 1.f));
@@ -239,6 +241,7 @@ int main() {
 			y = func(formula, x, formyula, j);
 			x2 = -j;
 			y2 = func(formula, -x, formyula,j);
+// так как я понимаю x1 и y1 это переменные, отображающиеся на экране, а x и y, те, которые нужны для работы кода
 			x1 = xNul + x * mesto;
 			y1 = yNul - y * mesto;
 			
@@ -246,6 +249,7 @@ int main() {
 			tochka.setPosition(x1 - 2, y1 - 2);
 
 			abobus.draw(tochka);
+//подстановка линий на экран (они были уже сгенерены)
 			lines[j].position = Vector2f(x1, y1);	
 			lines[j].color = sf::Color::Red;
 			x1 = xNul + x2 * mesto;
@@ -255,10 +259,12 @@ int main() {
 			lines2[j].position = Vector2f(x1, y1);
 			lines2[j].color = sf::Color::Red;
 			j++;
+//проверка на выход за экран
 			if (y1 < 0  or x1 < 0  or x1 > 800  or y1 > 800 and j<0 ) {
 				break;
 			}
 		}
+//вывод на экран
 		//cout << "\n\n\n\n";
 		abobus.draw(lines);
 		abobus.draw(lines2);
