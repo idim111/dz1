@@ -10,13 +10,13 @@ const int bye = 800;
 double func(double& formula, double x, string formyula, int ya_hz) {
 	int mas[100];
 	double sum = 0;
-	int jk = 0;
-	int jk2 = 0;
+	int jk = 0; //счётчик основного цикла для  измерения длины числа
+	int jk2 = 0; //счётчик второстипенного цикла для 
 	int jk3 = 0;
 	int power_of_10;
 	double sum_func = 0;
 	for (int i = 0; i < formyula.length(); i++) {
-		//длинная проверка на число
+		//длинная проверка на число для каждого индекса
 		if (formyula[i] == '1' and i == 0 or formyula[i] == '2' and i == 0 or formyula[jk] == '3' and i == 0 or formyula[jk] == '4' and i == 0 or formyula[jk] == '5' and i == 0 or formyula[jk] == '6' and i == 0 or formyula[jk] == '7' and i == 0 or formyula[jk] == '8' and i == 0 or formyula[jk] == '9' and i == 0 or formyula[jk] == '0' and i == 0) {
 			power_of_10 = 0;
 			jk = i;
@@ -144,6 +144,7 @@ int main() {
 	while (x1 < 800 or y1 < 800 or y1>0 or x1>0) {
 
 		if (j == 0) {
+//x равняется 0.01 для того, чтобы гипербола не ломала весь скрипт
 			x = 0.01;
 		}
 		else {
