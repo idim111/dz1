@@ -1,13 +1,11 @@
-//заменить все абобы
-//понять куда идут формула, просчитать их самостоятельно
-﻿#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
 using namespace std;
 using namespace sf;
 const int Hi = 800;
 const int bye = 800;
-double func(double& formula, double x, string formyula, int ya_hz) {
+double func(double& formula, double x, string formyula) {
 	int mas[100];
 	double sum = 0;
 	int jk = 0;
@@ -90,7 +88,7 @@ struct tochki {
 int main() {
 	setlocale(LC_ALL, "Russian");
 	cout << "Введите любую функцию для Y\n";
-	RenderWindow abobus(VideoMode(Hi, bye), "hello!");
+	RenderWindow screen(VideoMode(Hi, bye), "demos-lite!");
 
 
 	double xNul = 400;
@@ -149,10 +147,10 @@ int main() {
 		else {
 			x = j;
 		}
-
-		y = func(formula, x, formyula,j);
+		//первый цикл, сохраняющий счётчик, нужный для создания массива с линиями
+		y = func(formula, x, formyula);
 		x2 = -j;
-		y2 = func(formula, -x, formyula,j);
+		y2 = func(formula, -x, formyula);
 		x1 = xNul + x * mesto;
 		y1 = yNul - y * mesto;
 		tochka.setPosition(x1 - 2, y1 - 2);
@@ -167,24 +165,24 @@ int main() {
 	int N = j;
 	sf::VertexArray lines(LineStrip, N);
 	sf::VertexArray lines2(LineStrip, N);
-	while (abobus.isOpen()) {
+	while (screen.isOpen()) {
 		Event hello;
-		while (abobus.pollEvent(hello)) {
+		while (screen.pollEvent(hello)) {
 			if (hello.type == Event::Closed) {
-				abobus.close();
+				screen.close();
 			}
 		}
 
-		
-//отрисовка экрана
-		abobus.clear(Color::Black);
+
+		//отрисовка экрана
+		screen.clear(Color::Black);
 		kvadrat.setPosition(400, 0);
-		abobus.draw(kvadrat);
+		screen.draw(kvadrat);
 		kvadrat2.setPosition(0, 400);
-		abobus.draw(kvadrat2);
-		abobus.draw(text);
-		abobus.draw(text2);
-		abobus.draw(text3);
+		screen.draw(kvadrat2);
+		screen.draw(text);
+		screen.draw(text2);
+		screen.draw(text3);
 
 		RectangleShape palochka[100];
 		RectangleShape strelochka[4];
@@ -192,42 +190,42 @@ int main() {
 
 
 
-//вывод визуала
+		//вывод визуала
 		strelochka[0].setSize(Vector2f(30.f, 3.f));
 		strelochka[0].rotate(40.f);
 		strelochka[0].setPosition(776, 376);
-		abobus.draw(strelochka[0]);
+		screen.draw(strelochka[0]);
 		strelochka[1].setSize(Vector2f(30.f, 3.f));
 		strelochka[1].rotate(-40.f);
 		strelochka[1].setPosition(775, 425);
-		abobus.draw(strelochka[1]);
+		screen.draw(strelochka[1]);
 		strelochka[2].setSize(Vector2f(30.f, 3.f));
 		strelochka[2].rotate(-45.f);
 		strelochka[2].setPosition(376, 27);
-		abobus.draw(strelochka[2]);
+		screen.draw(strelochka[2]);
 		strelochka[3].setSize(Vector2f(30.f, 3.f));
 		strelochka[3].rotate(45.f);
 		strelochka[3].setPosition(406, 7);
-		abobus.draw(strelochka[3]);
+		screen.draw(strelochka[3]);
 
 
-// основная работы функции, Счётчик Х, j второспепенный счётчик, производится функция "func" на Y
+		// основная работы функции, Счётчик Х, j второспепенный счётчик, производится функция "func" на Y
 
 		for (int i = 1; i < 51; i++) {
 			palochka[i].setSize(Vector2f(20.f, 1.f));
 			palochka[i].setPosition(390, i * 25);
-			abobus.draw(palochka[i]);
+			screen.draw(palochka[i]);
 		}
 		for (int i = 1; i < 51; i++) {
 			palochka[i].setSize(Vector2f(1.f, 20.f));
 			palochka[i].setPosition(i * 25, 390);
-			abobus.draw(palochka[i]);
+			screen.draw(palochka[i]);
 		}
 
 
 
 
-		
+
 		j = 0;
 		while (x1 < 800 or y1 < 800 or y1>0 or x1>0) {
 			if (j == 0) {
@@ -236,38 +234,38 @@ int main() {
 			else {
 				x = j;
 			}
-			
 
-			y = func(formula, x, formyula, j);
+
+			y = func(formula, x, formyula);
 			x2 = -j;
-			y2 = func(formula, -x, formyula,j);
-// так как я понимаю x1 и y1 это переменные, отображающиеся на экране, а x и y, те, которые нужны для работы кода
+			y2 = func(formula, -x, formyula);
+			// x1 и y1 это координаты конца линии. x, y - координаты начала линии
 			x1 = xNul + x * mesto;
 			y1 = yNul - y * mesto;
-			
+
 			//cout << x1 - 400 << " " << (y1 - 400) * -1 << "\n";
 			tochka.setPosition(x1 - 2, y1 - 2);
 
-			abobus.draw(tochka);
-//подстановка линий на экран (они были уже сгенерены)
-			lines[j].position = Vector2f(x1, y1);	
+			screen.draw(tochka);
+			//подстановка линий на экран (они были уже сгенерены)
+			lines[j].position = Vector2f(x1, y1);
 			lines[j].color = sf::Color::Red;
 			x1 = xNul + x2 * mesto;
 			y1 = yNul - y2 * mesto;
 			tochka2.setPosition(x1 - 2, y1 - 2);
-			abobus.draw(tochka2);
+			screen.draw(tochka2);
 			lines2[j].position = Vector2f(x1, y1);
 			lines2[j].color = sf::Color::Red;
 			j++;
-//проверка на выход за экран
-			if (y1 < 0  or x1 < 0  or x1 > 800  or y1 > 800 and j<0 ) {
+			//проверка на выход за экран
+			if (y1 < 0 or x1 < 0 or x1 > 800 or y1 > 800 and j < 0) {
 				break;
 			}
 		}
-//вывод на экран
-		//cout << "\n\n\n\n";
-		abobus.draw(lines);
-		abobus.draw(lines2);
-		abobus.display();
+		//вывод на экран
+				//cout << "\n\n\n\n";
+		screen.draw(lines);
+		screen.draw(lines2);
+		screen.display();
 	}
 }
